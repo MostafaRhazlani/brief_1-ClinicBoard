@@ -1,0 +1,15 @@
+# Serve index.html as the default file
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# Allow direct access to static files and folders (including .js)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} \.(js|css|png|jpg|jpeg|gif|svg)$ [NC]
+RewriteRule ^ - [L]
+
+# Redirect all other requests to index.html
+RewriteRule ^ index.html [L]
