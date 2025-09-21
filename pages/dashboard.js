@@ -102,14 +102,14 @@ export default function Dashboard() {
 
     let totalAmount = 0;
     const totalIncome = container.querySelector('.totalIncome');
-    data.cash.receipt.forEach(re => {
+    data?.cash?.receipt?.forEach(re => {
         totalAmount += parseInt(re.amount);
     })
     totalIncome.textContent = "+" + totalAmount;
 
     let totalExpense = 0;
     const expense = container.querySelector('.totalExpense');
-    data.cash.expense.forEach(ex => {
+    data?.cash?.expense?.forEach(ex => {
         totalExpense += parseInt(ex.amount);
     })
     expense.textContent = "+" + totalExpense;
