@@ -1,6 +1,7 @@
 import Form from '../components/form-modal.js';
 import Modal from '../components/popup-form-modal.js';
 import { getData, setData } from '../localStorage.js';
+import DeletePopup from '../components/delete-popup.js';
 
 export default function Appoinetments() {
     const container = document.createElement('div');
@@ -240,6 +241,28 @@ export default function Appoinetments() {
             const appointment = data.appointments.find(a => a.id === id);
             if (appointment) {
                 showEditModal(appointment);
+            }
+        }
+    });
+
+    // Handle delete button click to show confirmation popup and delete appointment
+    tableBody.addEventListener('click', (e) => {
+        if (e.target.closest('.delete-btn')) {
+            const btn = e.target.closest('.delete-btn');
+            const id = parseInt(btn.getAttribute('data-id'));
+            const data = getData('clinicApp:data');
+            const appointmentIdx = data.appointments.findIndex(a => a.id === id);
+            if (appointmentIdx !== -1) {
+                const deleteModal = DeletePopup({
+                    onConfirm: () => {
+                        data.appointments = data.appointments.filter(appointment => appointment.id !== id);
+                    
+                        setData('clinicApp:data', data);
+                        renderAppointments();
+                    }
+                });
+                container.appendChild(deleteModal);
+                deleteModal.open();
             }
         }
     });
