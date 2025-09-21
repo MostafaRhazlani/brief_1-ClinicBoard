@@ -301,8 +301,19 @@ tr:hover {
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 10px;
-    background: #dc2626;
     color: white;
+}
+
+.confirmed-badge {
+    background: #26dc3b;
+}
+
+.canceled-badge {
+    background: #dc2626;
+}
+
+.completed-badge {
+    background: #2663dc;
 }
 
 .action-buttons {

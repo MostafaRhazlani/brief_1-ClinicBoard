@@ -76,7 +76,9 @@ export default function Appoinetments() {
             tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No appointments found.</td></tr>`;
             return;
         }
+
         appointments.forEach((appointment, idx) => {
+            const statusBadge = appointment.status === 'Canceled' ? 'canceled-badge' : (appointment.status ==='Confirmed' ? 'confirmed-badge' : 'completed-badge');
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${idx + 1}</td>
@@ -87,7 +89,7 @@ export default function Appoinetments() {
                 <td>${appointment.room}</td>
                 <td>${appointment.duration} min</td>
                 <td>${appointment.type}</td>
-                <td><span class="status-badge">${appointment.status}</span></td>
+                <td><span class="status-badge ${statusBadge}">${appointment.status}</span></td>
                 <td>
                     <div class="action-buttons">
                         <button class="action-btn edit-btn" data-id="${appointment.id}"><i class="fa-regular fa-pen-to-square"></i></button>
@@ -184,6 +186,62 @@ export default function Appoinetments() {
         durationInput.value = '';
         timeInput.value = '';
 
+    });
+
+    // Edit appointment modal logic
+    let editModal = null;
+    function showEditModal(appointment) {
+        // Create edit form with appointment info
+        const editForm = Form({
+            fields: [
+                { type: "time", id: "edit_appointment_time", label: "Time", value: appointment.time },
+                { type: "number", id: "edit_appointment_duration", label: "Duration", value: appointment.duration, placeholder: "Enter duration" },
+                { type: "text", id: "edit_appointment_status", label: "Status", value: appointment.status, placeholder: "Enter status" },
+                { type: "submit", value: 'Update Appointment', className: 'btn' }
+            ]
+        });
+
+        editModal = Modal({ content: editForm });
+        container.appendChild(editModal);
+        editModal.open();
+
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const time = editForm.querySelector('#edit_appointment_time').value.trim();
+            const duration = editForm.querySelector('#edit_appointment_duration').value.trim();
+            const status = editForm.querySelector('#edit_appointment_status').value.trim();
+
+            if (!time || !duration || !status) {
+                alert('All fields are required.');
+                return;
+            }
+
+            let data = getData('clinicApp:data');
+            const idx = data.appointments.findIndex(a => a.id === appointment.id);
+
+            if (idx !== -1) {
+                data.appointments[idx].time = time;
+                data.appointments[idx].duration = duration;
+                data.appointments[idx].status = status;
+                setData('clinicApp:data', data);
+                alert('Appointment updated!');
+                editModal.close();
+                renderAppointments();
+            }
+        });
+    }
+
+    // Handle edit button click to open modal with appointment info
+    tableBody.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-btn')) {
+            const btn = e.target.closest('.edit-btn');
+            const id = parseInt(btn.getAttribute('data-id'));
+            const data = getData('clinicApp:data');
+            const appointment = data.appointments.find(a => a.id === id);
+            if (appointment) {
+                showEditModal(appointment);
+            }
+        }
     });
 
     return container;
