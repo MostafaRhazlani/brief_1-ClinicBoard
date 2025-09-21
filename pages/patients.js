@@ -2,6 +2,7 @@ import Form from '../components/form-modal.js';
 import Modal from '../components/popup-form-modal.js';
 import { setData, getData } from '../localStorage.js';
 import PatientCard from '../components/patient-card.js';
+import DeletePopup from '../components/delete-popup.js'; // import delete popup
 
 export default function Patients() {
     const container = document.createElement('div');
@@ -163,6 +164,25 @@ export default function Patients() {
             if (patient) {
                 showEditModal(patient);
             }
+        }
+
+        // Handle delete button click to show confirmation popup and delete patient
+        if (e.target.closest('.delete-btn')) {
+            const btn = e.target.closest('.delete-btn');
+            const id = parseInt(btn.getAttribute('data-id'));
+            const data = getData('clinicApp:data');
+
+            // Show delete confirmation popup
+            const deleteModal = DeletePopup({
+                onConfirm: () => {
+                    data.patients = data.patients.filter(patient => patient.id !== id);
+                    
+                    setData('clinicApp:data', data);
+                    renderPatients();
+                },
+            });
+            container.appendChild(deleteModal);
+            deleteModal.open();
         }
     });
 

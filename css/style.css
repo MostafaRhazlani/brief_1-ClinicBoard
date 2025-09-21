@@ -424,6 +424,73 @@ tr:hover {
 }
 
 /* ---------------------------------------- */
+/* ------ CONFIRM DELETE POPUP CSS ------ */
+/* ---------------------------------------- */
+
+.delete-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-delete-content {
+    position: relative;
+    background: #fff;
+    padding: 30px 30px 20px 30px;
+    border-radius: 10px;
+    min-width: 320px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confirm-delete-content .confirm-message {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.confirm-delete-content .confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.confirm-actions .btn {
+    min-width: 80px;
+    padding: 7px 18px;
+    font-size: 1rem;
+}
+
+.confirm-delete-content .confirm-delete-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.confirm-delete-content .cancel-delete-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.confirm-delete-content .confirm-delete-btn:hover {
+    background: #dc2626;
+}
+
+.confirm-delete-content .cancel-delete-btn:hover {
+    background: #ddebf9;
+}
+
+/* ---------------------------------------- */
 /* ----------- MEDIA QUERY ---------------- */
 /* ---------------------------------------- */
 
