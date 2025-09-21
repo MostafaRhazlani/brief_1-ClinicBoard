@@ -145,7 +145,7 @@ export default function Appoinetments() {
         const duration = durationInput.value.trim();
         const time = timeInput.value.trim();
 
-        if (!patientId || !room || !type || !duration || !time) {
+        if (!patientId || !type || !duration || !time) {
             alert('All fields are required.');
             return;
         }
