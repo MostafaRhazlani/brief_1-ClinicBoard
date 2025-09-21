@@ -13,87 +13,42 @@ export default function Patients() {
                 Add Patient
             </button>
         </div>
-        <div class="cards-container">
-            <div class="card">
+        <div class="cards-container"></div>
+    `;
+
+    const cardsContainer = container.querySelector('.cards-container');
+
+    // render all patients
+    function renderPatients() {
+        cardsContainer.innerHTML = '';
+        const data = getData('clinicApp:data');
+        const patients = data && data.patients ? data.patients : [];
+        if (patients.length === 0) {
+            cardsContainer.innerHTML = '<p>No patients found.</p>';
+            return;
+        }
+        patients.forEach(patient => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
                 <div class="card-head">
                     <div class="avatar"></div>
                     <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
+                        <div class="name">${patient.name}</div>
+                        <div class="email">${patient.email}</div>
                     </div>
                 </div>
                 <div class="info">
-                    N° phone: <strong>0612345678</strong>
+                    N° phone: <strong>${patient.phone}</strong>
                 </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-            <div class="card">
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>0612345678</strong>
-                </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-            <div class="card">
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>0612345678</strong>
-                </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-            <div class="card">
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>0612345678</strong>
-                </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-            <div class="card">
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>0612345678</strong>
-                </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-            <div class="card">
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">Alixender</div>
-                        <div class="email">alex@gamil.com</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>0612345678</strong>
-                </div>
-                <div class="date">Friday, June 26</div>
-            </div>
-        </div>
-    `
+                <div class="date">${new Date(patient.createdAt).toDateString()}</div>
+            `;
+            cardsContainer.appendChild(card);
+        });
+    }
+
+    // Initial render
+    renderPatients();
 
     // Create the form for patient creation
     const form = Form({
@@ -140,6 +95,8 @@ export default function Patients() {
         alert('Patient added!');
         modal.close();
 
+        // Re-render patients list
+        renderPatients();
     });
 
     return container;
