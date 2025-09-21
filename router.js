@@ -1,58 +1,72 @@
-import home from './pages/home.js';
-import about from './pages/about.js';
+import Dashboard from './pages/dashboard.js';
+import Appointments from './pages/appointments.js';
+import Patients from './pages/patients.js';
+import Register from './pages/auth/register.js';
+import Login from './pages/auth/login.js';
 import page_404 from './pages/page_404.js';
+import Sidebar from './pages/layout/sidebar.js';
+import Navbar from './pages/layout/navbar.js';
+
+import { getData } from './localStorage.js';
 
 const root = document.getElementById('root');
-const pathNameList = document.querySelectorAll('.pathName li');
+
+
+const mainPage = document.createElement('div');
+mainPage.setAttribute("id", "main-page");
+root.appendChild(mainPage);
+
+const container = document.createElement('div');
+container.className = 'container';
+mainPage.appendChild(container);
     
-const parentElement = document.createElement('div');
-parentElement.setAttribute("id", "main-page");
-root.appendChild(parentElement);
 
 const routes = [
-    {
-        'path' : '/',
-        'page': home,
-    },
-
-    {
-        'path' : '/about',
-        'page': about,
-    },
+    { 'path' : '/', 'page': Dashboard},
+    { 'path' : '/appointments', 'page': Appointments},
+    { 'path' : '/patients', 'page': Patients},
+    { 'path' : '/register', 'page': Register},
+    { 'path' : '/login', 'page': Login},
 ];
 
+const protectedPages = ['/', '/appointments', '/patients'];
 
-document.addEventListener('DOMContentLoaded', () => {
+function navigateTo(path, addToHistory = true) {
+    const authUser = getData('authUser');
     
-    const currentPath = window.location.pathname
-    const route = routes.find(route => route.path === currentPath);
-
-    parentElement.innerHTML = '';
-
-    // render default page based on current url
-    if(route) {
-        parentElement.appendChild(route.page());
-    } else {
-        parentElement.appendChild(page_404());
+    if (protectedPages.includes(path) && !authUser) {
+        path = '/login';
     }
 
-    pathNameList.forEach((li, i) => {
-        li.addEventListener('click', () => {
-            const path = routes[i].path;
-            history.pushState({}, '', path);
-            
-            parentElement.innerHTML = '';
-            parentElement.appendChild(routes[i].page());
-        });
-    });
+    let route = routes.find(route => route.path === path);
+
+    const sidebar = root.querySelector('.sidebar');
+    // sidebar for secure pages
+    if (protectedPages.includes(path)) {
+        if(!sidebar) root.insertBefore(Sidebar(), mainPage)
+    } else {
+        if(sidebar) sidebar.remove();
+    }
+    
+    
+    container.innerHTML = '';
+    container.appendChild(Navbar());
+    if (route) {
+        container.appendChild(route.page());
+    } else {
+        container.appendChild(page_404());
+    }
+
+    if(addToHistory) history.pushState({}, '', path);
+}
+window.navigateTo = navigateTo
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname;
+        navigateTo(currentPath);
 });
 
 window.addEventListener('popstate', () => {
     const currentPath = window.location.pathname
-    const route = routes.find(route => route.path === currentPath);
-    console.log();
-    
-    parentElement.innerHTML = '';
-    parentElement.appendChild(route.page());
-    
+    navigateTo(currentPath, false);
 })
