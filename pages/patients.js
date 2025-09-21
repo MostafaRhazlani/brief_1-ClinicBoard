@@ -84,7 +84,10 @@ export default function Patients() {
         let data = getData('clinicApp:data') || {
             patients: [],
             appointments: [],
-            cash: [],
+            cash: {
+                receipt: [],
+                expense: [],
+            },
             authentication: { users: [] }
         };
 

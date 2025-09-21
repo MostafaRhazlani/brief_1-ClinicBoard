@@ -111,7 +111,10 @@ export default function Appoinetments() {
         const data = getData('clinicApp:data') || {
             patients: [],
             appointments: [],
-            cash: [],
+            cash: {
+                receipt: [],
+                expense: [],
+            },
             authentication: { users: [] }
         };
         const patients = data.patients || [];
@@ -151,7 +154,10 @@ export default function Appoinetments() {
         const data = getData('clinicApp:data') || {
             patients: [],
             appointments: [],
-            cash: [],
+            cash: {
+                receipt: [],
+                expense: [],
+            },
             authentication: { users: [] }
         };
         const patient = data.patients.find(p => p.id == patientId);
