@@ -54,7 +54,10 @@ function navigateTo(path, addToHistory = true) {
     
     
     container.innerHTML = '';
-    container.appendChild(Navbar());
+
+    if (protectedPages.includes(path)) {
+        container.appendChild(Navbar());
+    }
     if (route) {
         container.appendChild(route.page());
     } else {
