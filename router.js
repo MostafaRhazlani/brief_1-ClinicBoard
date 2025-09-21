@@ -1,6 +1,7 @@
 import Dashboard from './pages/dashboard.js';
 import Appointments from './pages/appointments.js';
 import Patients from './pages/patients.js';
+import Expenses from './pages/expenses.js';
 import Register from './pages/auth/register.js';
 import Login from './pages/auth/login.js';
 import page_404 from './pages/page_404.js';
@@ -25,11 +26,12 @@ const routes = [
     { 'path' : '/', 'page': Dashboard},
     { 'path' : '/appointments', 'page': Appointments},
     { 'path' : '/patients', 'page': Patients},
+    { 'path' : '/expenses', 'page': Expenses},
     { 'path' : '/register', 'page': Register},
     { 'path' : '/login', 'page': Login},
 ];
 
-const protectedPages = ['/', '/appointments', '/patients'];
+const protectedPages = ['/', '/appointments', '/patients', '/expenses'];
 
 function navigateTo(path, addToHistory = true) {
     const authUser = getData('authUser');
