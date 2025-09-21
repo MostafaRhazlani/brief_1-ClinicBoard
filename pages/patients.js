@@ -1,6 +1,7 @@
 import Form from '../components/form-modal.js';
 import Modal from '../components/popup-form-modal.js';
 import { setData, getData } from '../localStorage.js';
+import PatientCard from '../components/patient-card.js';
 
 export default function Patients() {
     const container = document.createElement('div');
@@ -16,10 +17,17 @@ export default function Patients() {
         <div class="cards-container"></div>
     `;
 
+    // clear inputs
+    const clearInputs = (inputs) => {
+        inputs.forEach(input => {
+            input.value = "";
+        });
+    }
+
     const cardsContainer = container.querySelector('.cards-container');
 
     // render all patients
-    function renderPatients() {
+    const renderPatients = () => {
         cardsContainer.innerHTML = '';
         const data = getData('clinicApp:data');
         const patients = data && data.patients ? data.patients : [];
@@ -28,22 +36,7 @@ export default function Patients() {
             return;
         }
         patients.forEach(patient => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-head">
-                    <div class="avatar"></div>
-                    <div>
-                        <div class="name">${patient.name}</div>
-                        <div class="email">${patient.email}</div>
-                    </div>
-                </div>
-                <div class="info">
-                    N° phone: <strong>${patient.phone}</strong>
-                </div>
-                <div class="date">${new Date(patient.createdAt).toDateString()}</div>
-            `;
-            cardsContainer.appendChild(card);
+            cardsContainer.appendChild(PatientCard(patient));
         });
     }
 
@@ -71,19 +64,34 @@ export default function Patients() {
     // Handle submit form to store new patient in localstorage
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = form.querySelector('#patient_name').value.trim();
-        const email = form.querySelector('#patient_email').value.trim();
-        const phone = form.querySelector('#patient_phone').value.trim();
+        const nameInput = form.querySelector('#patient_name');
+        const emailInput = form.querySelector('#patient_email');
+        const phoneInput = form.querySelector('#patient_phone');
 
+        const name = nameInput.value.trim()
+        const email = emailInput.value.trim()
+        const phone = phoneInput.value.trim()
+
+        
+
+        
         if (!name || !email || !phone) {
             alert('All fields are required.');
             return;
         }
 
-        let data = getData('clinicApp:data');
+        let data = getData('clinicApp:data') || {
+            patients: [],
+            appointments: [],
+            cash: [],
+            authentication: { users: [] }
+        };
 
-        // Add new patient
+        let id = data.patients.length +1;
+
+        // // Add new patient
         data.patients.push({
+            id,
             name,
             email,
             phone,
@@ -94,9 +102,68 @@ export default function Patients() {
 
         alert('Patient added!');
         modal.close();
+        clearInputs([nameInput, emailInput, phoneInput]);
 
-        // Re-render patients list
+        // // Re-render patients list
         renderPatients();
+    });
+
+    // --- Edit Modal ---
+    let editModal = null;
+    const showEditModal = (patient) => {
+
+        // Create edit form with patient info
+        const editForm = Form({
+            fields: [
+                { type: "text", id: "edit_patient_name", label: "Patient Name", value: patient.name, placeholder: "Enter patient name" },
+                { type: "email", id: "edit_patient_email", label: "Email", value: patient.email, placeholder: "Enter patient email" },
+                { type: "text", id: "edit_patient_phone", label: "Phone Number", value: patient.phone, placeholder: "Enter phone number" },
+                { type: "submit", value: 'Update Patient', className: 'btn' }
+            ]
+        });
+
+        editModal = Modal({ content: editForm });
+        container.appendChild(editModal);
+        editModal.open();
+
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = editForm.querySelector('#edit_patient_name').value.trim();
+            const email = editForm.querySelector('#edit_patient_email').value.trim();
+            const phone = editForm.querySelector('#edit_patient_phone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('All fields are required.');
+                return;
+            }
+
+            let data = getData('clinicApp:data');
+
+            // Find patient by id and update
+            const idx = data.patients.findIndex(p => p.id === patient.id);
+            if (idx !== -1) {
+                data.patients[idx].name = name;
+                data.patients[idx].email = email;
+                data.patients[idx].phone = phone;
+                setData('clinicApp:data', data);
+                alert('Patient updated!');
+                editModal.close();
+                renderPatients();
+            }
+        });
+    }
+
+    // Handle edit button click to open modal with patient info
+    cardsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-btn')) {
+            const btn = e.target.closest('.edit-btn');
+            const id = parseInt(btn.getAttribute('data-id'));
+            const data = getData('clinicApp:data');
+            const patient = data.patients.find(patient => patient.id === id);
+            if (patient) {
+                showEditModal(patient);
+            }
+        }
     });
 
     return container;

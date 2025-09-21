@@ -284,7 +284,8 @@ tr:hover {
 }
 .action-buttons {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    column-gap: 8px;
 }
 .action-btn {
     width: 24px;
@@ -370,8 +371,13 @@ tr:hover {
 .date {
     color: gray;
     font-size: 0.8em;
-    margin-top: 15px;
     text-align: end;
+}
+
+.date-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* ---------------------------------------- */
@@ -464,10 +470,6 @@ tr:hover {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
-
-    /* ---------------------------------------- */
-    /* ----------- Appointment CSS ------------ */
-    /* ---------------------------------------- */
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
