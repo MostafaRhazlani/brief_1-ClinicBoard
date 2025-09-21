@@ -48,10 +48,13 @@ body {
 }
 
 .form-group {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 18px;
 }
 
-input {
+input,
+select {
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 15px;
@@ -59,7 +62,7 @@ input {
     transition: border-color 0.2s;
 }
 
-.form-group input {
+.form-group input, select {
     width: 100%;
     padding: 12px 14px;
 }
@@ -127,28 +130,34 @@ input {
     flex-direction: column;
     z-index: 9999;
 }
+
 .user-info {
     padding: 20px;
     text-align: center;
 }
+
 .user-info h3 {
     font-size: 14px;
     font-weight: 600;
     color: #374151;
 }
+
 .user-info p {
     font-size: 12px;
     color: #6b7280;
 }
+
 .nav-menu {
     flex: 1;
 }
+
 .nav-title {
     padding: 0 20px 10px;
     font-size: 12px;
     color: #6b7280;
     text-transform: uppercase;
 }
+
 .nav-item {
     display: flex;
     align-items: center;
@@ -161,11 +170,13 @@ input {
     border: none;
     background: none;
 }
+
 .nav-item:hover,
 .nav-item.active {
     background: #d5e2fd;
     color: #374151;
 }
+
 .nav-item.active {
     border-right: 3px solid #2563eb;
 }
@@ -173,6 +184,7 @@ input {
 .nav-item img {
     width: 30px;
 }
+
 .logout-btn {
     margin: 15px;
     padding: 8px 12px;
@@ -186,6 +198,7 @@ input {
     justify-content: center;
     gap: 3px;
 }
+
 .logout-btn:hover {
     background: #b91c1c;
 }
@@ -216,6 +229,7 @@ input {
     margin-top: 30px;
     overflow: hidden;
 }
+
 .card-header {
     padding: 10px 20px;
     border-bottom: 1px solid #e9ecef;
@@ -231,6 +245,7 @@ input {
     font-weight: 500;
     color: var(--primary-color);
 }
+
 .search-box {
     display: flex;
     align-items: center;
@@ -240,6 +255,7 @@ input {
     border-radius: 4px;
     border: 1px solid #e9ecef;
 }
+
 .search-box input {
     border: none;
     background: none;
@@ -247,14 +263,17 @@ input {
     font-size: 14px;
     width: 150px;
 }
+
 .table-container {
     overflow-x: auto;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
 }
+
 th {
     background: #f8f9fa;
     padding: 12px;
@@ -265,15 +284,18 @@ th {
     text-transform: uppercase;
     border-bottom: 1px solid #e9ecef;
 }
+
 td {
     padding: 12px;
     border-bottom: 1px solid #f3f4f6;
     font-size: 14px;
     color: #374151;
 }
+
 tr:hover {
     background: #f8f9fa;
 }
+
 .status-badge {
     display: inline-block;
     padding: 4px 10px;
@@ -282,11 +304,13 @@ tr:hover {
     background: #dc2626;
     color: white;
 }
+
 .action-buttons {
     display: flex;
     align-items: center;
     column-gap: 8px;
 }
+
 .action-btn {
     width: 24px;
     height: 24px;
@@ -298,14 +322,17 @@ tr:hover {
     justify-content: center;
     font-size: 12px;
 }
+
 .edit-btn {
     background: #3b82f6;
     color: white;
 }
+
 .delete-btn {
     background: #ef4444;
     color: white;
 }
+
 .action-btn:hover {
     opacity: 0.8;
 }
@@ -385,23 +412,24 @@ tr:hover {
 /* ---------------------------------------- */
 
 .popup-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.3);
-  z-index: 99999;
-  justify-content: center;
-  align-items: center;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-  position: relative;
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
+    width: 440px;
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
 }
 
 .modal-content form {
@@ -409,14 +437,14 @@ tr:hover {
 }
 
 .close-btn {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: var(--color-btn);
-  cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-btn);
+    cursor: pointer;
 }
 
 .close-btn:hover {
@@ -434,7 +462,7 @@ tr:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 99999;
     justify-content: center;
     align-items: center;
@@ -446,7 +474,7 @@ tr:hover {
     padding: 30px 30px 20px 30px;
     border-radius: 10px;
     min-width: 320px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -604,7 +632,7 @@ tr:hover {
     .content {
         margin-top: 100px;
         width: 90%;
-        margin: auto;    
+        margin: auto;
     }
 
     .cards-container {
