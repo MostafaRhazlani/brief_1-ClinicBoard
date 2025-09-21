@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+
+:root {
+    --primary-color: white;
+    --font-size: 1rem;
+    --border-reduis: 8px;
+    --color-btn: #00789C;
+    --hover-color-btn: #43B2BF;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+    cursor: pointer;
+}
+
+body {
+    background-color: #f0f6ff;
+}
+
+.content {
+    width: 90%;
+    margin: auto;
+    padding: 100px 0;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.logo span {
+    font-size: 40px;
+    font-weight: 600;
+    color: #0097a7;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+input {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+}
+
+.form-group input:focus {
+    border-color: var(--hover-color-btn);
+}
+
+.btn {
+    border-radius: 4px;
+    border: none;
+    padding: 5px 10px;
+    background-color: var(--color-btn);
+    color: white;
+    transition: 0.2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--hover-color-btn);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+/* ---------------------------------------- */
+/* ----------- NAVBAR CSS ---------------- */
+/* ---------------------------------------- */
+.navbar {
+    position: fixed;
+    right: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    height: 70px;
+    border-bottom: 1px solid #d4d4d4;
+    z-index: 9998;
+}
+
+.user-info-nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    column-gap: 10px;
+    margin: 0 25px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #374151;
+}
+
+/* ---------------------------------------- */
+/* ----------- SIDEBAR CSS ---------------- */
+/* ---------------------------------------- */
+
+.sidebar {
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    padding: 5px;
+    flex-direction: column;
+    z-index: 9999;
+}
+.user-info {
+    padding: 20px;
+    text-align: center;
+}
+.user-info h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+.user-info p {
+    font-size: 12px;
+    color: #6b7280;
+}
+.nav-menu {
+    flex: 1;
+}
+.nav-title {
+    padding: 0 20px 10px;
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #6b7280;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-radius: 4px;
+    border: none;
+    background: none;
+}
+.nav-item:hover,
+.nav-item.active {
+    background: #d5e2fd;
+    color: #374151;
+}
+.nav-item.active {
+    border-right: 3px solid #2563eb;
+}
+
+.nav-item img {
+    width: 30px;
+}
+.logout-btn {
+    margin: 15px;
+    padding: 8px 12px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: var(--font-size);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+.logout-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* ---------------------------------------- */
+/* -------------- AUTH CSS ---------------- */
+/* ---------------------------------------- */
+.auth-container {
+    height: 100vh;
+}
+
+.auth-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* ---------------------------------------- */
+/* ----------- Appointment CSS ------------ */
+/* ---------------------------------------- */
+.content-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    margin-top: 30px;
+    overflow: hidden;
+}
+.card-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    background-color: #374151;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+.search-box input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    width: 150px;
+}
+.table-container {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+th {
+    background: #f8f9fa;
+    padding: 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e9ecef;
+}
+td {
+    padding: 12px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    color: #374151;
+}
+tr:hover {
+    background: #f8f9fa;
+}
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    background: #dc2626;
+    color: white;
+}
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+.action-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+.edit-btn {
+    background: #3b82f6;
+    color: white;
+}
+.delete-btn {
+    background: #ef4444;
+    color: white;
+}
+.action-btn:hover {
+    opacity: 0.8;
+}
+
+/* ---------------------------------------- */
+/* ----------- Patient CSS ---------------- */
+/* ---------------------------------------- */
+
+.patient-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cards-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1;
+}
+
+.card .card-head {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.email {
+    color: #555;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.info {
+    text-align: left;
+    font-size: 0.9em;
+    margin: 10px 0;
+}
+
+.info strong {
+    font-weight: bold;
+}
+
+.date {
+    color: gray;
+    font-size: 0.8em;
+    margin-top: 15px;
+    text-align: end;
+}
+
+/* ---------------------------------------- */
+/* ----------- MEDIA QUERY ---------------- */
+/* ---------------------------------------- */
+
+@media (max-width: 576px) {
+    .auth-content {
+        width: 90%;
+    }
+
+    .sidebar {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 70px;
+        border-top: 1px solid rgb(225, 225, 225);
+    }
+
+    .user-info,
+    .nav-title,
+    .nav-text,
+    .logout-btn {
+        display: none;
+    }
+
+    .nav-menu ul {
+        height: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        align-items: center;
+    }
+
+    .nav-item {
+        justify-content: center;
+    }
+
+    .nav-item img {
+        width: 30px;
+    }
+
+    /* ---------------------------------------- */
+    /* ----------- PATIENT CSS ---------------- */
+    /* ---------------------------------------- */
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    /* ---------------------------------------- */
+    /* ----------- Appointment CSS ------------ */
+    /* ---------------------------------------- */
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .auth-content {
+        width: 70%;
+    }
+
+    .container {
+        margin-left: 80px;
+    }
+
+    .sidebar {
+        position: fixed;
+        width: 80px;
+        height: 100vh;
+        background: white;
+        border-right: 1px solid #dddddd;
+        display: flex;
+        padding: 5px;
+        flex-direction: column;
+    }
+
+    .nav-menu ul {
+        padding-top: 100px;
+    }
+
+    .nav-item {
+        justify-content: center;
+    }
+
+    .user-info,
+    .nav-title,
+    .nav-text,
+    .logout-btn span {
+        display: none;
+    }
+
+    /* ---------------------------------------- */
+    /* ----------- PATIENT CSS ---------------- */
+    /* ---------------------------------------- */
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 769px) {
+
+    /* ---------------------------------------- */
+    /* -------------- AUTH CSS ---------------- */
+    /* ---------------------------------------- */
+    .auth-content {
+        width: 500px;
+    }
+
+    /* ---------------------------------------- */
+    /* ----------- Other pages CSS ------------ */
+    /* ---------------------------------------- */
+    .container {
+        margin-left: 250px;
+        height: 100vh;
+    }
+
+    .content {
+        margin-top: 100px;
+        width: 90%;
+        margin: auto;    
+    }
+
+    .cards-container {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .pass-group {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 6px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        row-gap: 10px;
+    }
+}
