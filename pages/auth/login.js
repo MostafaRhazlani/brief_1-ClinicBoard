@@ -1,4 +1,5 @@
 import Form from '../../components/form-modal.js';
+import { decrypt } from '../../protect-pass.js';
 import { getData, setData } from '../../localStorage.js';
 
 const  Login = () => {
@@ -52,7 +53,8 @@ const  Login = () => {
             alert('No users found.');
             return;
         }
-        const user = data.authentication.users.find(user => user.email === email && user.password === password);
+        
+        const user = data.authentication.users.find(user => user.email === email &&  decrypt(user.password) === password);
         if (user) {
             setData('authUser', { full_name: user.full_name, email: user.email });
             alert('Login successful!');

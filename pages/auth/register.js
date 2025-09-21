@@ -1,4 +1,5 @@
 import Form from '../../components/form-modal.js';
+import { encrypt } from '../../protect-pass.js';
 import { setData, getData } from '../../localStorage.js';
 
 const Register = () => {
@@ -72,7 +73,7 @@ const Register = () => {
         }
 
         // Add new user
-        data.authentication.users.push({ full_name, email, password });
+        data.authentication.users.push({ full_name, email, password: encrypt(password) });
         setData('clinicApp:data', data);
 
         alert('Account created!');
