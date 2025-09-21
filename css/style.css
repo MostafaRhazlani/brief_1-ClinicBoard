@@ -62,7 +62,8 @@ select {
     transition: border-color 0.2s;
 }
 
-.form-group input, select {
+.form-group input,
+select {
     width: 100%;
     padding: 12px 14px;
 }
@@ -528,6 +529,134 @@ tr:hover {
 .confirm-delete-content .cancel-delete-btn:hover {
     background: #ddebf9;
 }
+
+/* ---------------------------------------- */
+/* ----------- DASHBOARD CSS--------------- */
+/* ---------------------------------------- */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-cards {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 20px;
+}
+
+.card img {
+    width: 230px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.welcome h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.stats {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.stat-box {
+    border-radius: 10px;
+    padding: 15px;
+    color: #333;
+}
+
+.stat-box span {
+    font-size: 13px;
+}
+
+.stat-box i {
+    margin-right: 8px;
+}
+
+.stat-box img {
+    width: 30px;
+}
+
+.appointments {
+    background: #ede9fe;
+}
+
+.consultations {
+    background: #dcfce7;
+}
+
+.room {
+    background: #fee2e2;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 auto 10px;
+}
+
+.profile h3 {
+    margin: 5px 0;
+}
+
+.patients-limit {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.profile-stats div {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.total {
+    background: #e0f2fe;
+}
+
+.consult {
+    background: #fef3c7;
+}
+
 
 /* ---------------------------------------- */
 /* ----------- MEDIA QUERY ---------------- */
