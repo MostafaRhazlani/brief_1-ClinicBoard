@@ -24,29 +24,17 @@ export default function Appoinetments() {
                         <tr>
                             <th>N°</th>
                             <th>Patient Name</th>
-                            <th>Time</th>
                             <th>Email</th>
                             <th>Number Phone</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                            <th>Duration</th>
+                            <th>Type</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Abdullah Azudia</td>
-                            <td>8:00</td>
-                            <td>abdullah@gmail.com</td>
-                            <td>0812345678</td>
-                            <td><span class="status-badge">Confirmed</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fa-regular fa-trash-can"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -75,6 +63,43 @@ export default function Appoinetments() {
     // Create modal and pass form as content
     const modal = Modal({ content: form });
     container.appendChild(modal);
+
+    // Find table body
+    const tableBody = container.querySelector('tbody');
+
+    // Render all appointments
+    function renderAppointments() {
+        tableBody.innerHTML = '';
+        const data = getData('clinicApp:data') || { appointments: [] };
+        const appointments = data.appointments || [];
+        if (appointments.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No appointments found.</td></tr>`;
+            return;
+        }
+        appointments.forEach((appointment, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${idx + 1}</td>
+                <td>${appointment.patientName}</td>
+                <td>${appointment.patientEmail}</td>
+                <td>${appointment.patientPhone}</td>
+                <td>${appointment.time}</td>
+                <td>${appointment.room}</td>
+                <td>${appointment.duration} min</td>
+                <td>${appointment.type}</td>
+                <td><span class="status-badge">${appointment.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-btn edit-btn" data-id="${appointment.id}"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="action-btn delete-btn" data-id="${appointment.id}"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    renderAppointments();
 
     // Show modal on button click
     container.querySelector('.add-appointment-btn').addEventListener('click', () => {
@@ -150,6 +175,7 @@ export default function Appoinetments() {
 
         alert('Appointment created!');
         modal.close();
+        renderAppointments();
 
         // clear form fields
         patientSelect.value = '';
