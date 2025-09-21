@@ -20,6 +20,7 @@ const Sidebar = () => {
         { name: 'Dashboard', icon: '../../img/dashboard.svg', path: '/' },
         { name: 'Appointments', icon: '../../img/appointment.svg', path: '/appointments' },
         { name: 'Patients', icon: '../../img/patient.svg', path: '/patients' },
+        { name: 'Receipts', icon: '../../img/income.svg', path: '/receipts' },
         { name: 'Expenses', icon: '../../img/expense.svg', path: '/expenses' },
     ];
 
